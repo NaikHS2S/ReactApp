@@ -57,14 +57,14 @@ const HomeScreen = ({ route, navigation }) => {
 
       <Text style={styles.sectionTitle}> Email:
 
-        <Text style={styles.innerText}>  {String(emailId)}</Text> </Text>
+        <Text style={styles.innerText}> {String(emailId)}</Text> </Text>
 
       <Button style={styles.button}
         title="Go Back"
         onPress={() => navigation.popToTop()}
       />
 
-      {typeof loggedInEmail === "undefined" || loggedInEmail.length === 0 ? (
+      {loggedInEmail?.length === 0 ? (
         <Text style={{ fontSize: 25, margin: 10 }}>Event Dispatched</Text>
       ) : (
         <Text style={{ fontSize: 30, margin: 10 }}>No Event Dispatched</Text>
@@ -76,7 +76,6 @@ const HomeScreen = ({ route, navigation }) => {
       />
 
       <View style={{ flex: 1, padding: 24 }}>
-
 
         {isLoading ? <ActivityIndicator /> : (
           <FlatList
