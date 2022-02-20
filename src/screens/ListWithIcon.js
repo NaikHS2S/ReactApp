@@ -9,7 +9,7 @@ import {
   Text,
 } from 'react-native';
 
-export default class ListWithIcon extends Component<{}> {
+export default class ListWithIcon extends Component {
   
   constructor(props) {
     super(props);
