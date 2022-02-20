@@ -57,38 +57,32 @@ const LoginScreen = ({ navigation }) => {
     });
   }
 
-
-
-
   const _onLoginPressed = () => {
 
-    if (typeof email.error === 'undefined' || typeof password.error === 'undefined') {
-      if (typeof email.error === 'undefined') {
-        passwordUpdate("");
-      }
-      if (typeof password.error === 'undefined') {
-        emailUpdate("");
-      }
-
-    } else if (email.error.trim().length > 0 || password.error.trim().length > 0) {
+    const emailValue = email.value ?? '';
+    const pwdValue =  password.value ?? '';
+    const emailError = email.error ?? '';
+    const pwdError =  password.error ?? '';
+    
+    if (emailError.trim().length > 0 || pwdError.trim().length > 0) {
 
       console.log(password.value);
       console.log(email.value);
       console.log(password.error);
       console.log(email.error);
     }
-    else if (email.value.trim().length > 0 && password.value.trim().length > 0) {
+    else if (emailValue.trim().length > 0 && pwdValue.trim().length > 0) {
 
       getDataCall();
 
     }
     else {
 
-      if (email.value.trim().length == 0) {
+      if (emailValue.trim().length == 0) {
         emailUpdate("");
 
       }
-      if (password.error.trim().length == 0) {
+      if (pwdValue.trim().length == 0) {
         passwordUpdate("");
       }
 
