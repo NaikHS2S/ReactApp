@@ -1,5 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
+import {
+Alert
+} from 'react-native';
+import messaging from '@react-native-firebase/messaging';
 import styles from '../styles/style';
 import axios from 'axios';
 
@@ -19,21 +23,30 @@ import {
 const HomeScreen = ({ route, navigation }) => {
 
   const loggedInEmail = useSelector(state => state.emailId);
-
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    console.log("useEffect called");
-  });
+const requestUserPermission = async () => {
+  const authStatus = await messaging().requestPermission();
+  const enabled =
+    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+  if (enabled) {
+    const token = await messaging().getToken();
+    messaging().setOpenSettingsForNotificationsHandler(
+      async remoteMessage => {
+        console.log('notification handled in the background!', remoteMessage);
+      }
+    );
+    console.log('A new FCM token arrived!', JSON.stringify(token));
+  }
+}
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-
   const { itemId, emailId } = route.params;
 
   const getMovies = async () => {
-
-
     axios.get('https://reactnative.dev/movies.json')
       .then(function (response) {
         setData(response.data.movies);
@@ -47,8 +60,29 @@ const HomeScreen = ({ route, navigation }) => {
   }
 
   useEffect(() => {
-    getMovies();
+    const init = async () => {
+      await requestUserPermission();
+      await getMovies();
+    }
+    init();
     console.log("Use effect called");
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage);
+    });
+
+    messaging()
+    .getInitialNotification()
+    .then(remoteMessage => {
+      if (remoteMessage) {
+        messaging().cancelAllNotifications();
+      }
+    });
+
+    return unsubscribe;
   }, []);
 
   return (

@@ -8,6 +8,7 @@ import {
   Image,
   Text,
 } from 'react-native';
+import messaging from '@react-native-firebase/messaging';
 
 export default class ListWithIcon extends Component {
   
