@@ -67,6 +67,7 @@ const LoginScreen = ({ navigation }) => {
     });
 
     messaging().setBackgroundMessageHandler(async remoteMessage => {
+      PushNotification.removeAllDeliveredNotifications();
       console.log('Message handled in the background!', JSON.stringify(remoteMessage));
     });
 
