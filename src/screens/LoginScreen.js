@@ -1,5 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
+import {
+  Alert
+  } from 'react-native';
+import messaging from '@react-native-firebase/messaging';
 import styles from '../styles/style';
 import { TextInput } from 'react-native-paper';
 import { emailValidator, passwordValidator } from "../utils/loginUtil";
@@ -26,6 +30,56 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
 
+  const requestUserPermission = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+  
+    if (enabled) {
+      const token = await messaging().getToken();
+      messaging().setOpenSettingsForNotificationsHandler(
+        async remoteMessage => {
+          console.log('notification handled in the background!', remoteMessage);
+        }
+      );
+      console.log('A new FCM token arrived!', JSON.stringify(token));
+    }
+  }
+
+  useEffect(() => {
+    const init = async () => {
+      await requestUserPermission();
+    }
+    init();
+    console.log("Use effect called");
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', JSON.stringify(remoteMessage));
+    });
+
+        // Assume a message-notification contains a "type" property in the data payload of the screen to open
+
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      console.log(
+            'Notification caused app to open from background state:',
+            remoteMessage.notification,
+          );
+    });
+
+    messaging()
+    .getInitialNotification()
+    .then(remoteMessage => {
+      if (remoteMessage) {
+        console.log('Launched app from quit state', JSON.stringify(remoteMessage));
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   const getDataCall = () => {
 
