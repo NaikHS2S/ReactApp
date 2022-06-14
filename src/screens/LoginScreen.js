@@ -4,6 +4,7 @@ import {
   Alert
   } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
+import PushNotification from "react-native-push-notification";
 import styles from '../styles/style';
 import { TextInput } from 'react-native-paper';
 import { emailValidator, passwordValidator } from "../utils/loginUtil";
@@ -47,8 +48,16 @@ const LoginScreen = ({ navigation }) => {
     }
   }
 
+  const notificationCallBack = (array) => {
+    console.log('Notification list', JSON.stringify(array));
+    if(array.length > 1){
+      //PushNotification.removeAllDeliveredNotifications();
+    }
+}
+
   useEffect(() => {
     const init = async () => {
+      PushNotification.getDeliveredNotifications(notificationCallBack);
       await requestUserPermission();
     }
     init();
