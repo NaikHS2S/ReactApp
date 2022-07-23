@@ -33,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
       alert(apiResponse.error);
       setLoading(false);
     }else{
-      navigation.navigate('Second', {
+      navigation.replace('Second', {
         customeId: 86,
         emailId: email.value,
       });

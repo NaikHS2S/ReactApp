@@ -14,8 +14,6 @@ import { updateLogoutSuccess } from '../../redux/Login/actions';
 
 const HomeScreen = ({ route, navigation }) => {
 
-  const loggedInEmail = useSelector(state => state.emailId);
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -25,10 +23,9 @@ const HomeScreen = ({ route, navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const { itemId, emailId } = route.params;
+  const { emailId } = route.params;
 
   const getMovies = async () => {
-
 
     axios.get('https://reactnative.dev/movies.json')
       .then(function (response) {
@@ -53,26 +50,17 @@ const HomeScreen = ({ route, navigation }) => {
 
       <Text style={styles.sectionTitle}> Email:
 
-        <Text style={styles.innerText}>  {String(emailId)}</Text> </Text>
+      <Text style={styles.innerText}>  {String(emailId)}</Text> </Text>
 
       <Button style={styles.button}
-        title="Go Back"
-        onPress={() => navigation.popToTop()}
-      />
-
-      {typeof loggedInEmail === "undefined" || loggedInEmail.length === 0 ? (
-        <Text style={{ fontSize: 25, margin: 10 }}>Event Dispatched</Text>
-      ) : (
-        <Text style={{ fontSize: 30, margin: 10 }}>No Event Dispatched</Text>
-      )}
-
-      <Button style={styles.button}
-        title="Dispatch Event"
-        onPress={() => dispatch(updateLogoutSuccess(emailId))}
+        title="Logout"
+        onPress={() => {
+          dispatch(updateLogoutSuccess(emailId));
+          navigation.replace('Login');
+        }}
       />
 
       <View style={{ flex: 1, padding: 24 }}>
-
 
         {isLoading ? <ActivityIndicator /> : (
           <FlatList

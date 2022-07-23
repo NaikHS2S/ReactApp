@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PersistGate } from 'redux-persist/integration/react';
 import LoginScreen from './src/screens/LoginScreen/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen/HomeScreen';
+import AppConfigScreen from './src/screens/AppConfigScreen/AppConfigScreen';
 import { Provider as StateProvider } from 'react-redux';
 import { store, persistor } from './src/redux/store';
 
@@ -18,7 +19,8 @@ const App = () => {
 
       <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator initialRouteName="AppConfigScreen">          
+          <Stack.Screen name="AppConfigScreen" component={AppConfigScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Second" component={HomeScreen} />
           </Stack.Navigator>
