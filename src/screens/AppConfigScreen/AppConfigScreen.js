@@ -19,6 +19,8 @@ const {emailId} = useSelector( (state) => state.loginAppReducer)
       navigation.replace('Second', {
         emailId: emailId,
       });
+    }else{
+      navigation.replace('Login');
     }
   }, []);
 
