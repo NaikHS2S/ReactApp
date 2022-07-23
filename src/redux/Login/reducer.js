@@ -1,8 +1,7 @@
 import { LOGIN_EVENT, LOGOUT_EVENT } from "../payloads.redux";
 
 const initialState = {
-  loginStatus: false,
-  emailId:""
+  emailId:null,
 }
 
 const loginReducer = (state = initialState, action) => {
@@ -10,14 +9,12 @@ const loginReducer = (state = initialState, action) => {
     case LOGIN_EVENT:
       return {
         ...state,
-        loginStatus: true,
         emailId:action.payload
       }
     case LOGOUT_EVENT:
       return {
         ...state,
-        loginStatus: false,
-        emailId:""
+        emailId:null
       }
 
     default:

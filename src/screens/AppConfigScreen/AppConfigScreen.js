@@ -17,7 +17,6 @@ const {emailId} = useSelector( (state) => state.loginAppReducer)
   useEffect(() => {
     if(emailId){
       navigation.replace('Second', {
-        customeId: 1,
         emailId: emailId,
       });
     }

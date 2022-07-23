@@ -34,7 +34,6 @@ const LoginScreen = ({ navigation }) => {
       setLoading(false);
     }else{
       navigation.replace('Second', {
-        customeId: 86,
         emailId: email.value,
       });
       setLoading(false);

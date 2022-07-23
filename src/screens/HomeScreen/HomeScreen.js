@@ -12,18 +12,12 @@ import {
 } from 'react-native';
 import { updateLogoutSuccess } from '../../redux/Login/actions';
 
-const HomeScreen = ({ route, navigation }) => {
+const HomeScreen = ({ navigation }) => {
 
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    console.log("useEffect called");
-  });
-
+  const dispatch = useDispatch();
+  const {emailId} = useSelector( (state) => state.loginAppReducer)
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-
-  const { emailId } = route.params;
 
   const getMovies = async () => {
 
@@ -41,7 +35,6 @@ const HomeScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     getMovies();
-    console.log("Use effect called");
   }, []);
 
   return (
@@ -55,7 +48,7 @@ const HomeScreen = ({ route, navigation }) => {
       <Button style={styles.button}
         title="Logout"
         onPress={() => {
-          dispatch(updateLogoutSuccess(emailId));
+          dispatch(updateLogoutSuccess());
           navigation.replace('Login');
         }}
       />

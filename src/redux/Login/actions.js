@@ -25,9 +25,9 @@ export const updateLoginSuccess = (emailId) => async (dispatch) => {
     }
 };
 
-export const updateLogoutSuccess = (emailId) => async (dispatch) => {
+export const updateLogoutSuccess = () => async (dispatch) => {
     await dispatch({
         type: LOGOUT_EVENT,
-        payload: emailId
+        payload: null
     })
 };
