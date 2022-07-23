@@ -1,12 +1,9 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from '../../styles/style';
 import { TextInput } from 'react-native-paper';
 import { emailValidator, passwordValidator } from "../../utils/loginUtil";
 import { LOGO } from "../../constants/app.constant";
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { loginEvent } from '../../redux/reducer';
 
 import {
   Text,
@@ -15,50 +12,36 @@ import {
   Button,
   ActivityIndicator
 } from 'react-native';
+import { updateLoginSuccess } from '../../redux/Login/actions';
 
 
 const LoginScreen = ({ navigation }) => {
 
   const [isLoading, setLoading] = useState(false);
-
   const dispatch = useDispatch();
-
+  const login = async () => dispatch(updateLoginSuccess(email));
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
 
 
-  const getDataCall = () => {
+  const getDataCall = async () => {
 
     setLoading(true)
+    const apiResponse = await login();
 
-    axios
-    .post('https://jsonplaceholder.typicode.com/posts', {
-      title: 'dummy login',
-      body: email,
-      userId: 1,
-    })
-    .then(function (response) {
-      console.log(response.data.movies);
+    if(apiResponse?.error){
+      alert(apiResponse.error);
       setLoading(false);
-
-      dispatch(loginEvent(email));
-
+    }else{
       navigation.navigate('Second', {
         customeId: 86,
         emailId: email.value,
       });
-
       setLoading(false);
-
-    })
-    .catch(function (error) {
-      alert(error.message);
-      setLoading(false);
-    });
+    }
   }
 
   const _onLoginPressed = () => {
-
     if (typeof email.error === 'undefined' || typeof password.error === 'undefined') {
       if (typeof email.error === 'undefined') {
         passwordUpdate("");

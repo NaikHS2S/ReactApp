@@ -2,12 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../styles/style';
 import axios from 'axios';
-
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { logoutEvent } from '../../redux/reducer';
-
-
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Text,
   View,
@@ -15,6 +10,7 @@ import {
   ActivityIndicator,
   FlatList
 } from 'react-native';
+import { updateLogoutSuccess } from '../../redux/Login/actions';
 
 const HomeScreen = ({ route, navigation }) => {
 
@@ -72,7 +68,7 @@ const HomeScreen = ({ route, navigation }) => {
 
       <Button style={styles.button}
         title="Dispatch Event"
-        onPress={() => dispatch(logoutEvent(emailId))}
+        onPress={() => dispatch(updateLogoutSuccess(emailId))}
       />
 
       <View style={{ flex: 1, padding: 24 }}>

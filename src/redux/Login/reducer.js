@@ -1,14 +1,4 @@
-import { LOGIN_EVENT, LOGOUT_EVENT } from "./payloads.redux"
-
-export const loginEvent = emailId => ({
-  type: LOGIN_EVENT,
-  payload: emailId
-})
-
-export const logoutEvent = emailId => ({
-  type: LOGOUT_EVENT,
-  payload:emailId
-})
+import { LOGIN_EVENT, LOGOUT_EVENT } from "../payloads.redux";
 
 const initialState = {
   loginStatus: false,
