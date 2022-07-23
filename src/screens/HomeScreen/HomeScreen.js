@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/style';
+import styles from '../../styles/style';
 import axios from 'axios';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { logoutEvent } from '../redux/reducer';
+import { logoutEvent } from '../../redux/reducer';
 
 
 import {

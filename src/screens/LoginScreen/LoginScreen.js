@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/style';
+import styles from '../../styles/style';
 import { TextInput } from 'react-native-paper';
-import { emailValidator, passwordValidator } from "../utils/loginUtil";
-import { LOGO } from "../constants/app.constant";
+import { emailValidator, passwordValidator } from "../../utils/loginUtil";
+import { LOGO } from "../../constants/app.constant";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { loginEvent } from '../redux/reducer';
+import { loginEvent } from '../../redux/reducer';
 
 import {
   Text,
@@ -56,9 +56,6 @@ const LoginScreen = ({ navigation }) => {
       setLoading(false);
     });
   }
-
-
-
 
   const _onLoginPressed = () => {
 
