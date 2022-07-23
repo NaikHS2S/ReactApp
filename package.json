@@ -10,9 +10,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.7",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
+    "@reduxjs/toolkit": "^1.8.3",
     "axios": "^0.25.0",
     "react": "17.0.2",
     "react-native": "0.67.2",
@@ -21,8 +23,11 @@
     "react-native-reanimated": "^2.4.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.2",
-    "react-redux": "^7.2.6",
+    "react-redux": "^7.2.8",
     "redux": "^4.1.2",
+    "redux-persist": "^6.0.0",
+    "redux-persist-transform-encrypt": "^3.0.1",
+    "redux-thunk": "^2.4.1",
     "validator": "^13.7.0"
   },
   "devDependencies": {

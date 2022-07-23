@@ -1,6 +1,4 @@
-
-export const LOGIN_EVENT = 'LOGIN_EVENT'
-export const LOGOUT_EVENT = 'LOGOUT_EVENT'
+import { LOGIN_EVENT, LOGOUT_EVENT } from "./payloads.redux"
 
 export const loginEvent = emailId => ({
   type: LOGIN_EVENT,
@@ -17,7 +15,7 @@ const initialState = {
   emailId:""
 }
 
-const rootReducer = (state = initialState, action) => {
+const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_EVENT:
       return {
@@ -37,4 +35,4 @@ const rootReducer = (state = initialState, action) => {
   }
 }
 
-export default rootReducer
+export default loginReducer
